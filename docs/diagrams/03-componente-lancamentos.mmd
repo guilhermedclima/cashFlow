@@ -1,0 +1,31 @@
+flowchart TB
+    subgraph API["Presentation"]
+        Endpoint["POST /transactions<br/>(Minimal API)"]
+        Validator["FluentValidation"]
+    end
+
+    subgraph App["Application"]
+        Handler["RegisterTransactionHandler<br/>(MediatR)"]
+        OutboxSvc["IOutboxWriter"]
+    end
+
+    subgraph Domain["Domain"]
+        Transaction["Transaction<br/>(Aggregate Root)"]
+        Money["Money<br/>(Value Object)"]
+        TxType["TransactionType<br/>(Enum)"]
+        Event["TransactionRegistered<br/>(Domain Event)"]
+    end
+
+    subgraph Infra["Infrastructure"]
+        Repo["TransactionRepository<br/>(EF Core)"]
+        UoW["IUnitOfWork"]
+        OutboxRepo["OutboxWriter"]
+    end
+
+    Endpoint --> Validator --> Handler
+    Handler --> Transaction
+    Transaction --> Event
+    Handler --> Repo
+    Handler --> OutboxSvc --> OutboxRepo
+    Repo --> UoW
+    OutboxRepo --> UoW

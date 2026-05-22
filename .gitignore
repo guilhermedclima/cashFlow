@@ -1,0 +1,50 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.swp
+.vs/
+.vscode/
+.idea/
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+[Xx]64/
+[Xx]86/
+[Bb]uild[Ll]og.*
+[Pp]ublish/
+publish/
+*.binlog
+
+## Test
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+coverage*/
+TestResults/
+
+## Tools
+.tools/
+.config/
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Containers
+docker-compose.override.yml
+
+## Logs
+*.log
+logs/
+
+## Local secrets
+appsettings.Local.json
+secrets.json
+
+## Editor/IDE local config
+.claude/
+.cursor/

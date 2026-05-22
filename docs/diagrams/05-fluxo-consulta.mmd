@@ -1,0 +1,16 @@
+sequenceDiagram
+    actor C as Merchant
+    participant API as Reporting.Api
+    participant R as Redis
+    participant DB as PostgreSQL (Rp)
+
+    C->>API: GET /daily-balance/{merchant}/2026-05-19
+    API->>R: GET balance:{merchant}:2026-05-19
+    alt Cache HIT
+        R-->>API: balance
+    else Cache MISS
+        API->>DB: SELECT aggregated balance
+        DB-->>API: balance
+        API->>R: SETEX balance:{merchant}:2026-05-19 (TTL 60s)
+    end
+    API-->>C: 200 OK {date, totalCredits, totalDebits, balance}

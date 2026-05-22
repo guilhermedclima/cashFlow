@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>CashFlow.Shared.Contracts</RootNamespace>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,29 @@
+flowchart LR
+    Client[("Merchant<br/>(Web/Mobile)")]
+    Gateway["API Gateway<br/>(YARP / Nginx)"]
+
+    subgraph Transactions["Bounded Context: Transactions"]
+        ApiTx["Transactions.Api<br/>(ASP.NET Core)"]
+        DBTx[("PostgreSQL<br/>transactions_db")]
+        Outbox[/"OutboxPublisher<br/>(BackgroundService)"/]
+    end
+
+    Broker{{"RabbitMQ<br/>(Exchange: transactions)"}}
+
+    subgraph Reporting["Bounded Context: Reporting"]
+        Consumer[/"TransactionRegisteredConsumer<br/>(BackgroundService)"/]
+        ApiRp["Reporting.Api<br/>(ASP.NET Core)"]
+        DBRp[("PostgreSQL<br/>reporting_db")]
+        Cache[("Redis<br/>(daily balance)")]
+    end
+
+    Client -->|HTTPS| Gateway
+    Gateway -->|POST /transactions| ApiTx
+    Gateway -->|GET /daily-balance/{date}| ApiRp
+    ApiTx --> DBTx
+    DBTx -.->|poll outbox| Outbox
+    Outbox -->|publish| Broker
+    Broker -->|consume| Consumer
+    Consumer --> DBRp
+    ApiRp --> DBRp
+    ApiRp --> Cache

@@ -1,0 +1,7 @@
+C4Context
+    title Context Diagram - Cash Flow
+    Person(merchant, "Merchant", "Registers transactions and queries balance")
+    System(cashFlow, "Cash Flow System", "Records transactions and serves daily balance")
+    System_Ext(observability, "Observability Stack", "Logs, metrics, traces")
+    Rel(merchant, cashFlow, "Register transactions / query balance", "HTTPS/JSON")
+    Rel(cashFlow, observability, "Exports telemetry", "OTLP")

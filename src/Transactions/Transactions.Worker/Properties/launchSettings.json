@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Transactions.Worker": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:49728;http://localhost:49731"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+sequenceDiagram
+    actor C as Merchant
+    participant G as Gateway
+    participant T as Transactions.Api
+    participant DB as PostgreSQL (Tx)
+    participant OW as OutboxPublisher
+    participant MQ as RabbitMQ
+    participant CW as Consumer
+    participant DR as PostgreSQL (Rp)
+    participant R as Redis
+
+    C->>G: POST /transactions {amount, type}
+    G->>T: forward
+    T->>T: validate + create aggregate
+    T->>DB: BEGIN TX
+    T->>DB: INSERT transactions
+    T->>DB: INSERT outbox_messages
+    T->>DB: COMMIT
+    T-->>C: 201 Created (id)
+
+    Note over OW,MQ: Asynchronous - decoupled
+    OW->>DB: SELECT outbox WHERE not_published
+    OW->>MQ: publish TransactionRegisteredEvent
+    OW->>DB: UPDATE outbox SET published
+
+    MQ->>CW: deliver event
+    CW->>DR: UPSERT daily_balance (idempotent)
+    CW->>R: INVALIDATE cache balance:{date}
+    CW->>MQ: ACK

@@ -1,0 +1,35 @@
+**/bin/
+**/obj/
+**/out/
+**/TestResults/
+
+**/.vs/
+**/.vscode/
+**/.idea/
+
+**/*.user
+**/*.suo
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI
+.github/
+
+# Docs / dev artifacts
+docs/
+*.md
+!README.md
+
+# Local
+**/appsettings.Local.json
+**/secrets.json
+
+# Tests do not need to be inside app images
+tests/
+
+# OS
+.DS_Store
+Thumbs.db

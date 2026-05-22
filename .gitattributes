@@ -1,0 +1,23 @@
+# Auto-detect text files
+* text=auto eol=lf
+
+# Force LF for shell and config files
+*.sh         text eol=lf
+*.yml        text eol=lf
+*.yaml       text eol=lf
+Dockerfile   text eol=lf
+
+# C# / .NET
+*.cs         text diff=csharp
+*.csproj     text merge=union
+*.sln        text eol=crlf merge=union
+
+# Binary
+*.dll        binary
+*.exe        binary
+*.png        binary
+*.jpg        binary
+*.pdf        binary
+
+# Markdown
+*.md         text diff=markdown

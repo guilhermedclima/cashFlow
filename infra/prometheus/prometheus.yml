@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'transactions-api'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['transactions-api:8080']
+
+  - job_name: 'reporting-api'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['reporting-api:8080']
+
+  - job_name: 'transactions-worker'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['transactions-worker:8080']
+
+  - job_name: 'reporting-worker'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['reporting-worker:8080']

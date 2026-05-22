@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+    <!--
+      Warning policy:
+        - CS warnings (compiler) are treated as errors to enforce clean code.
+        - NU warnings from NuGet audit stay visible but do not break the build
+          (CVE tracking is a separate process handled via Dependabot).
+        - .NET analyzers (CA rules) are disabled - style/design rules are
+          great for library code but add noise to app code.
+          Style/quality is enforced by code review + .editorconfig.
+    -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1902;NU1903;NU1904</WarningsNotAsErrors>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+</Project>

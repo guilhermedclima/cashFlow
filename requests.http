@@ -1,0 +1,67 @@
+### CashFlow — REST Client requests
+###
+### Open this file in VS Code with the "REST Client" extension (humao.rest-client)
+### or in JetBrains Rider. Each block separated by ### is executable.
+
+@transactions = http://localhost:5001
+@reporting    = http://localhost:5002
+@merchant     = 11111111-1111-1111-1111-111111111111
+
+### Health (Transactions)
+GET {{transactions}}/health/ready
+
+### Health (Reporting)
+GET {{reporting}}/health/ready
+
+### Register a credit transaction
+# @name newCredit
+POST {{transactions}}/api/v1/transactions
+Content-Type: application/json
+X-Correlation-Id: dev-{{$timestamp}}
+
+{
+  "merchantId": "{{merchant}}",
+  "amount": 250.50,
+  "type": "Credit",
+  "description": "POS sale #042"
+}
+
+### Fetch the created transaction
+GET {{transactions}}/api/v1/transactions/{{newCredit.response.body.id}}
+
+### Register a debit transaction
+POST {{transactions}}/api/v1/transactions
+Content-Type: application/json
+
+{
+  "merchantId": "{{merchant}}",
+  "amount": 80.00,
+  "type": "Debit",
+  "description": "Supplier payment"
+}
+
+### Invalid transaction (negative amount) → 422
+POST {{transactions}}/api/v1/transactions
+Content-Type: application/json
+
+{
+  "merchantId": "{{merchant}}",
+  "amount": -50,
+  "type": "Credit"
+}
+
+### Missing merchantId → 400 (FluentValidation)
+POST {{transactions}}/api/v1/transactions
+Content-Type: application/json
+
+{
+  "merchantId": "00000000-0000-0000-0000-000000000000",
+  "amount": 100,
+  "type": "Credit"
+}
+
+### Daily balance for today (adjust the date as needed)
+GET {{reporting}}/api/v1/daily-balance/{{merchant}}/2026-05-19
+
+### Daily balance for a date with no data → 404
+GET {{reporting}}/api/v1/daily-balance/{{merchant}}/2099-01-01
