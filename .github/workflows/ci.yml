@@ -73,7 +73,7 @@ jobs:
 
       # No registry push; just validates the Dockerfiles build successfully.
       - name: Build Transactions.Api image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: src/Transactions/Transactions.Api/Dockerfile
@@ -81,7 +81,7 @@ jobs:
           tags: cashflow/transactions-api:ci
 
       - name: Build Transactions.Worker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: src/Transactions/Transactions.Worker/Dockerfile
@@ -89,7 +89,7 @@ jobs:
           tags: cashflow/transactions-worker:ci
 
       - name: Build Reporting.Api image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: src/Reporting/Reporting.Api/Dockerfile
@@ -97,7 +97,7 @@ jobs:
           tags: cashflow/reporting-api:ci
 
       - name: Build Reporting.Worker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: src/Reporting/Reporting.Worker/Dockerfile
