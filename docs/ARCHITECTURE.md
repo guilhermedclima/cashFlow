@@ -2,8 +2,6 @@
 
 > Architecture document for the Software Architect challenge.
 > Daily cash flow control system (debit/credit transactions + consolidated daily balance).
->
-> **Convention:** the challenge domain is in Portuguese, but the code is in English. This doc uses both - terms from the statement in Portuguese, code identifiers in `English` (see [section 16 Glossary PT to EN](#16-glossary-pt-to-en)).
 
 ---
 
@@ -506,29 +504,6 @@ Honest list of what **was not done** and why, demonstrating awareness of the tra
 | DLQ | Dead Letter Queue - queue for messages that failed after retries |
 | Aggregate / Aggregate Root | DDD: grouping of entities with a single transactional boundary |
 | Value Object | DDD: immutable object defined by its attributes, without identity |
-
-## 16. Glossary PT to EN
-
-Since the challenge is in Portuguese but the code was written in English, this table maps terms between the two vocabularies:
-
-| Portuguese (domain) | English (code) |
-|---|---|
-| Lancamentos (bounded context) | `Transactions` |
-| Consolidado (bounded context) | `Reporting` |
-| Lancamento (entity) | `Transaction` |
-| Saldo diario | `DailyBalance` |
-| Lancamento processado (dedup) | `ProcessedTransaction` |
-| Dinheiro / Valor monetario | `Money` |
-| Tipo (Credito/Debito) | `TransactionType` (`Credit` / `Debit`) |
-| Comerciante | `Merchant` |
-| Valor | `Amount` |
-| Moeda | `Currency` |
-| Descricao | `Description` |
-| Data/hora do lancamento | `OccurredOnUtc` |
-| Evento de dominio | `TransactionRegistered` (internal) / `TransactionRegisteredEvent` (integration) |
-| Table `lancamentos` | `transactions` |
-| Table `saldos_diarios` | `daily_balances` |
-| Table `lancamentos_processados` | `processed_transactions` |
 
 ---
 

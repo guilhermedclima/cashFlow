@@ -5,7 +5,7 @@
 
 ## Context
 
-Defined in [ADR-0002](0002-mensageria-assincrona.md) that communication will be asynchronous via broker. We need to choose which one.
+Defined in [ADR-0002](0002-async-messaging.md) that communication will be asynchronous via broker. We need to choose which one.
 
 Criteria:
 - Pub/sub support (multiple consumers possible in the future).

@@ -19,6 +19,21 @@ updates:
       interval: "monthly"
 
   - package-ecosystem: "docker"
-    directory: "/src/Lancamentos/Lancamentos.Api"
+    directory: "/src/Transactions/Transactions.Api"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "docker"
+    directory: "/src/Transactions/Transactions.Worker"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "docker"
+    directory: "/src/Reporting/Reporting.Api"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "docker"
+    directory: "/src/Reporting/Reporting.Worker"
     schedule:
       interval: "monthly"
